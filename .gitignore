@@ -3,3 +3,4 @@ build
 *.qm
 .directory
 *.swp
+cscope.out
