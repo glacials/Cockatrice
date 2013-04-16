@@ -217,6 +217,8 @@ public:
 	void processGameEventContainer(const GameEventContainer &cont, AbstractClient *client);
 	PendingCommand *prepareGameCommand(const ::google::protobuf::Message &cmd);
 	PendingCommand *prepareGameCommand(const QList< const ::google::protobuf::Message * > &cmdList);
+	
+	GameScene *getGameScene() { return scene; }
 public slots:
 	void sendGameCommand(PendingCommand *pend, int playerId = -1);
 	void sendGameCommand(const ::google::protobuf::Message &command, int playerId = -1);

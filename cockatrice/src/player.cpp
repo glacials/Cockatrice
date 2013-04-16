@@ -144,7 +144,12 @@ Player::Player(const ServerInfo_User &info, int _id, bool _local, TabGame *_pare
 	table = new TableZone(this, this);
 	connect(table, SIGNAL(sizeChanged()), this, SLOT(updateBoundingRect()));
 	
-	stack = new StackZone(this, (int) table->boundingRect().height(), this);
+	GameScene *gameScene = getGame()->getGameScene();
+	stack = gameScene->getStack();
+	if(stack == NULL) {
+		stack = new StackZone(this, (int) table->boundingRect().height()*2, this);
+		gameScene->setStack(stack);
+	}
 	
 	hand = new HandZone(this, _local || (_parent->getSpectator() && _parent->getSpectatorsSeeEverything()), (int) table->boundingRect().height(), this);
 	connect(hand, SIGNAL(cardCountChanged()), handCounter, SLOT(updateNumber()));

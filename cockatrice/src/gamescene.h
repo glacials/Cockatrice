@@ -14,6 +14,7 @@ class CardItem;
 class ServerInfo_Card;
 class PhasesToolbar;
 class QBasicTimer;
+class StackZone;
 
 class GameScene : public QGraphicsScene {
 	Q_OBJECT
@@ -29,6 +30,7 @@ private:
 	QBasicTimer *animationTimer;
 	QSet<CardItem *> cardsToAnimate;
 	void updateHover(const QPointF &scenePos);
+	StackZone *stack;
 public:
 	GameScene(PhasesToolbar *_phasesToolbar, QObject *parent = 0);
 	~GameScene();
@@ -43,6 +45,9 @@ public:
 	
 	void registerAnimationItem(AbstractCardItem *item);
 	void unregisterAnimationItem(AbstractCardItem *card);
+	
+	StackZone *getStack();
+	void setStack(StackZone *_stack);
 public slots:
 	void toggleZoneView(Player *player, const QString &zoneName, int numberCards);
 	void addRevealedZoneView(Player *player, CardZone *zone, const QList<const ServerInfo_Card *> &cardList, bool withWritePermission);

@@ -5,6 +5,7 @@
 #include "phasestoolbar.h"
 #include "settingscache.h"
 #include "carditem.h"
+#include "stackzone.h"
 #include <math.h>
 #include <QAction>
 #include <QGraphicsSceneMouseEvent>
@@ -270,6 +271,14 @@ void GameScene::unregisterAnimationItem(AbstractCardItem *card)
 	cardsToAnimate.remove(static_cast<CardItem *>(card));
 	if (cardsToAnimate.isEmpty())
 		animationTimer->stop();
+}
+
+StackZone *GameScene::getStack() {
+	return stack;
+}
+
+void GameScene::setStack(StackZone *_stack) {
+	stack = _stack;
 }
 
 void GameScene::startRubberBand(const QPointF &selectionOrigin)
