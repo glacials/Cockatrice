@@ -22,6 +22,7 @@ protected:
 	bool facedown;
 	int tapAngle;
 	QString color;
+	Player *controller;
 private:
 	bool isHovered;
 	qreal realZValue;
@@ -60,6 +61,8 @@ public:
 	void setFaceDown(bool _facedown);
 	void processHoverEvent();
 	void deleteCardInfoPopup() { emit deleteCardInfoPopup(name); }
+	Player *getController() { return controller; }
+	void setController(Player *_controller) { controller = _controller; }
 protected:
 	void transformPainter(QPainter *painter, const QSizeF &translatedSize, int angle);
 	void mousePressEvent(QGraphicsSceneMouseEvent *event);

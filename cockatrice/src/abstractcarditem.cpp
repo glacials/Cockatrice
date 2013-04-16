@@ -17,6 +17,7 @@ AbstractCardItem::AbstractCardItem(const QString &_name, Player *_owner, int _id
 	setCursor(Qt::OpenHandCursor);
 	setFlag(ItemIsSelectable);
 	setCacheMode(DeviceCoordinateCache);
+	setController(_owner);
 	
 	connect(db, SIGNAL(cardListChanged()), this, SLOT(cardInfoUpdated()));
 	connect(settingsCache, SIGNAL(displayCardNamesChanged()), this, SLOT(callUpdate()));

@@ -979,34 +979,36 @@ void Player::actSayMessage()
 void Player::setCardAttrHelper(const GameEventContext &context, CardItem *card, CardAttribute attribute, const QString &avalue, bool allCards)
 {
 	bool moveCardContext = context.HasExtension(Context_MoveCard::ext);
-	switch (attribute) {
-		case AttrTapped: {
-			bool tapped = avalue == "1";
-			if (!(!tapped && card->getDoesntUntap() && allCards)) {
-				if (!allCards)
-					emit logSetTapped(this, card, tapped);
-				card->setTapped(tapped, !moveCardContext);
+	if(card->getController() == this) {
+		switch (attribute) {
+			case AttrTapped: {
+				bool tapped = avalue == "1";
+				if (!(!tapped && card->getDoesntUntap() && allCards)) {
+					if (!allCards)
+						emit logSetTapped(this, card, tapped);
+					card->setTapped(tapped, !moveCardContext);
+				}
+				break;
 			}
-			break;
-		}
-		case AttrAttacking: card->setAttacking(avalue == "1"); break;
-		case AttrFaceDown: card->setFaceDown(avalue == "1"); break;
-		case AttrColor: card->setColor(avalue); break;
-		case AttrAnnotation: {
-			emit logSetAnnotation(this, card, avalue);
-			card->setAnnotation(avalue);
-			break;
-		}
-		case AttrDoesntUntap: {
-			bool value = (avalue == "1");
-			emit logSetDoesntUntap(this, card, value);
-			card->setDoesntUntap(value);
-			break;
-		}
-		case AttrPT: {
-			emit logSetPT(this, card, avalue);
-			card->setPT(avalue);
-			break;
+			case AttrAttacking: card->setAttacking(avalue == "1"); break;
+			case AttrFaceDown: card->setFaceDown(avalue == "1"); break;
+			case AttrColor: card->setColor(avalue); break;
+			case AttrAnnotation: {
+				emit logSetAnnotation(this, card, avalue);
+				card->setAnnotation(avalue);
+				break;
+			}
+			case AttrDoesntUntap: {
+				bool value = (avalue == "1");
+				emit logSetDoesntUntap(this, card, value);
+				card->setDoesntUntap(value);
+				break;
+			}
+			case AttrPT: {
+				emit logSetPT(this, card, avalue);
+				card->setPT(avalue);
+				break;
+			}
 		}
 	}
 }
